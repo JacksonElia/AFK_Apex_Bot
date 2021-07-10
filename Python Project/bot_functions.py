@@ -7,11 +7,13 @@ from psutil import process_iter
 
 def queue_into_game(resolution):
     if resolution == "HD":
-        pydirectinput.click(81, 670)
+        fill_button_cords = pyautogui.center(pyautogui.locateOnScreen("fill_teammatesHD.png"))
+        pydirectinput.click(fill_button_cords.x, fill_button_cords.y)
         sleep(1)
         pydirectinput.click(130, 953)
     else:
-        pydirectinput.click(108, 900)
+        fill_button_cords = pyautogui.center(pyautogui.locateOnScreen("fill_teammates2K.png"))
+        pydirectinput.click(fill_button_cords.x, fill_button_cords.y)
         sleep(1)
         pydirectinput.click(174, 1271)
 
