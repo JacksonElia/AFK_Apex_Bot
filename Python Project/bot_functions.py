@@ -6,16 +6,15 @@ from psutil import process_iter
 
 
 def queue_into_game(resolution):
-    if resolution == "HD":
-        fill_button_cords = pyautogui.center(pyautogui.locateOnScreen("fill_teammatesHD.png"))
-        pydirectinput.click(fill_button_cords.x, fill_button_cords.y)
+    try:
+        if pyautogui.locateOnScreen(f"fill_teammates{resolution}.png", confidence=.95) is not None:
+            fill_button_cords = pyautogui.center(pyautogui.locateOnScreen(f"fill_teammates{resolution}.png", confidence=.8))
+            pydirectinput.click(fill_button_cords.x, fill_button_cords.y)
         sleep(1)
-        pydirectinput.click(130, 953)
-    else:
-        fill_button_cords = pyautogui.center(pyautogui.locateOnScreen("fill_teammates2K.png"))
-        pydirectinput.click(fill_button_cords.x, fill_button_cords.y)
-        sleep(1)
-        pydirectinput.click(174, 1271)
+        ready_button_cords = pyautogui.center(pyautogui.locateOnScreen(f"ready_button{resolution}.png", confidence=.8))
+        pydirectinput.click(ready_button_cords.x, ready_button_cords.y)
+    except:
+        print("Error in finding fill and or ready button and loading into game.")
 
 
 def go_to_lobby(resolution):
@@ -76,12 +75,9 @@ class ApexBot:
             print("Pressing Escape")
             pydirectinput.press("escape")
             self.in_game = False
-        elif pyautogui.locateOnScreen(f"disconnected_player_constant{self.resolution}.png", confidence=.8) is not None or pyautogui.locateOnScreen(f"error_constant{self.resolution}.png", confidence=.8):
-            print("Reconnecting")
-            if self.resolution == "HD":
-                pydirectinput.click(957, 722)
-            else:
-                pydirectinput.click(1275, 963)
+        elif pyautogui.locateOnScreen(f"continue_error{self.resolution}.png", confidence=.8) is not None or pyautogui.locateOnScreen(f"continue_error2_{self.resolution}.png", confidence=.8):
+            print("Pressing Continue")
+            pydirectinput.press("escape")
             self.in_game = False
         else:
             print("Not in game")
@@ -102,16 +98,18 @@ class ApexBot:
             self.in_game = False
         elif pyautogui.locateOnScreen(f"horizon{self.resolution}.png", confidence=.8) is not None:
             print("Selecting Horizon")
-            if self.resolution == "HD":
-                pydirectinput.click(1420, 588)
-            else:
-                pydirectinput.click(1892, 784)
+            try:
+                button_cords = pyautogui.center(pyautogui.locateOnScreen(f"horizon{self.resolution}.png", confidence=.8))
+                pydirectinput.click(button_cords.x, button_cords.y)
+            except:
+                print("Horizon cords were not found")
         elif pyautogui.locateOnScreen(f"gibraltar{self.resolution}.png", confidence=.8) is not None:
             print("Selecting Gibraltar")
-            if self.resolution == "HD":
-                pydirectinput.click(1250, 440)
-            else:
-                pydirectinput.click(1665, 455)
+            try:
+                button_cords = pyautogui.center(pyautogui.locateOnScreen(f"gibraltar{self.resolution}.png", confidence=.8))
+                pydirectinput.click(button_cords.x, button_cords.y)
+            except:
+                print("Gibraltar cords were not found")
         elif pyautogui.locateOnScreen(f"launch{self.resolution}.png", confidence=.7) is not None:
             sleep(3)
             print("Launch")
@@ -132,12 +130,9 @@ class ApexBot:
             print("Pressing Escape")
             pydirectinput.press("escape")
             self.in_game = False
-        elif pyautogui.locateOnScreen(f"disconnected_player_constant{self.resolution}.png", confidence=.8) is not None or pyautogui.locateOnScreen(f"error_constant{self.resolution}.png", confidence=.8):
-            print("Reconnecting")
-            if self.resolution == "HD":
-                pydirectinput.click(957, 722)
-            else:
-                pydirectinput.click(1275, 963)
+        elif pyautogui.locateOnScreen(f"continue_error{self.resolution}.png", confidence=.8) is not None or pyautogui.locateOnScreen(f"continue_error2_{self.resolution}.png", confidence=.8):
+            print("Pressing Continue")
+            pydirectinput.press("escape")
             self.in_game = False
         else:
             print("Not in game")
