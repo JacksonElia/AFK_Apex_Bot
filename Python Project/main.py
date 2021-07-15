@@ -1,4 +1,6 @@
+import threading
 from tkinter import *
+from threading import *
 from bot_functions import *
 from other_functions import *
 from psutil import process_iter
@@ -52,6 +54,7 @@ res_button_pressed = ""
 mode_button_pressed = 0
 start_pressed = 0
 
+running = False
 
 # DEFINES THE FUNCTIONS THAT DETERMINE WHAT HAPPENS WHEN A BUTTON IS PRESSED
 # HEXCODE OF UNPRESSED BUTTON IS #ff4c4c
@@ -106,8 +109,12 @@ def button4_pressed():
     entry2.place_forget()
 
 
-running = False
 def button5_pressed():
+    t1 = Thread(target=afk_bot_start)
+    t1.start()
+
+
+def afk_bot_start():
     global running
     running = not running
     if res_button_pressed == "" or mode_button_pressed == 0:
