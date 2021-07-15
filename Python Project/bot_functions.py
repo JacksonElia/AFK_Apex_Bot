@@ -6,6 +6,7 @@ from psutil import process_iter
 
 
 def queue_into_game(resolution):
+    # TRY STATEMENT MAKES SURE THE GAME DOESN'T CRASH IF ONE OF THE BUTTONS CAN'T BE FOUND
     try:
         if pyautogui.locateOnScreen(f"fill_teammates{resolution}.png", confidence=.95) is not None:
             fill_button_cords = pyautogui.center(pyautogui.locateOnScreen(f"fill_teammates{resolution}.png", confidence=.8))
@@ -18,6 +19,7 @@ def queue_into_game(resolution):
 
 
 def go_to_lobby(resolution):
+    # DEPENDING ON THE RESOLUTION, THE EXACT ORDER OF CLICKS AND BUTTON INPUTS IS MAPPED OUT
     if resolution == "HD":
         pydirectinput.click(1628, 1050)
         sleep(1)
@@ -52,6 +54,7 @@ class ApexBot:
         self.resolution = resolution
 
     def xp_grinding(self):
+        # CHECKS TO SEE IF APEX IS STILL OPEN, IF IT IS THEN IT CHECKS FOR CERTAIN BUTTONS OR ICONS ON THE SCREEN TO DETERMINE ITS NEXT ACTION
         if "r5apex.exe" not in [p.name() for p in process_iter()]:
             pass
         elif pyautogui.locateOnScreen(f"in_game_constant{self.resolution}.png", confidence=.8) is not None:
@@ -84,6 +87,7 @@ class ApexBot:
             self.in_game = False
 
     def kd_lowering(self, interact_key, tactical_key):
+        # CHECKS TO SEE IF APEX IS STILL OPEN, IF IT IS THEN IT CHECKS FOR CERTAIN BUTTONS OR ICONS ON THE SCREEN TO DETERMINE ITS NEXT ACTION
         if "r5apex.exe" not in [p.name() for p in process_iter()]:
             pass
         elif pyautogui.locateOnScreen(f"in_game_constant{self.resolution}.png", confidence=.8) is not None:
@@ -98,6 +102,7 @@ class ApexBot:
             self.in_game = False
         elif pyautogui.locateOnScreen(f"horizon{self.resolution}.png", confidence=.8) is not None:
             print("Selecting Horizon")
+            # SELECTS HORIZON AND IF HORIZON CAN'T BE SELECTED IT PREVENTS THE PROGRAM FROM CRASHING
             try:
                 button_cords = pyautogui.center(pyautogui.locateOnScreen(f"horizon{self.resolution}.png", confidence=.8))
                 pydirectinput.click(button_cords.x, button_cords.y)
@@ -105,6 +110,7 @@ class ApexBot:
                 print("Horizon cords were not found")
         elif pyautogui.locateOnScreen(f"gibraltar{self.resolution}.png", confidence=.8) is not None:
             print("Selecting Gibraltar")
+            # SELECTS HORIZON AND IF GIBRALTAR CAN'T BE SELECTED IT PREVENTS THE PROGRAM FROM CRASHING
             try:
                 button_cords = pyautogui.center(pyautogui.locateOnScreen(f"gibraltar{self.resolution}.png", confidence=.8))
                 pydirectinput.click(button_cords.x, button_cords.y)

@@ -50,11 +50,14 @@ image5_2_pressed = PhotoImage(file="button5_2_pressed.png")
 entry1 = create_custom_entry(root=root, placeholder_text="Enter your interact key (Defaults to E)")
 entry2 = create_custom_entry(root=root, placeholder_text="Enter your tactical key (Defaults to Q)")
 
+# VARIABLES THAT ARE USED TO DETERMINE WHAT BUTTON IS PRESSED
 res_button_pressed = ""
 mode_button_pressed = 0
 start_pressed = 0
 
+# VARIABLE USED WHEN THE START BUTTON IS PRESSED TO KEEP TRACK OF IF THE BOT IS RUNNING OR IF THE USER NEEDS TO DO SOMETHING
 running = False
+
 
 # DEFINES THE FUNCTIONS THAT DETERMINE WHAT HAPPENS WHEN A BUTTON IS PRESSED
 # HEXCODE OF UNPRESSED BUTTON IS #ff4c4c
@@ -110,13 +113,16 @@ def button4_pressed():
 
 
 def button5_pressed():
+    # CREATING AND STARTING THE THREAD FOR THE BOT
     t1 = Thread(target=afk_bot_start)
     t1.start()
 
 
 def afk_bot_start():
+    # USED TO DETERMINE IF THE BOT IS RUNNING
     global running
     running = not running
+    # CHECKS IF THE BOT IS ALLOWED TO RUN (USER HAS TO INPUT THINGS CORRECTLY)
     if res_button_pressed == "" or mode_button_pressed == 0:
         label4.configure(text="You must select the mode and resolution.")
         running = False
@@ -126,33 +132,30 @@ def afk_bot_start():
     elif running:
         label4.configure(text="")
         button5.configure(image=image5_pressed)
-        root.update()
         print("Launching bot")
         root.after(1000, button5.configure(image=image5_2))
-        root.update()
         apex_bot = ApexBot(res_button_pressed)
         while True:
             if not running:
                 break
-            root.update()
+            # CHECKS THROUGH THE PROCESSES RUNNING ON THE USER'S COMPUTER TO MAKE SURE APEX IS OPEN
             if "r5apex.exe" in [p.name() for p in process_iter()]:
                 if mode_button_pressed == 4:
                     apex_bot.xp_grinding()
                 else:
+                    # GETS THE VALUES IN THE TEXT FIELDS
                     interact = entry1.get()
                     tactical = entry2.get()
+                    # CHECKS TO SEE IF THE USER INPUTTED NOTHING, AND IF SO USES THE DEFAULT KEYS
                     if entry1.get() == entry1.placeholder:
                         interact = "e"
                     if entry2.get() == entry2.placeholder:
                         tactical = "q"
                     apex_bot.kd_lowering(interact_key=interact.lower(), tactical_key=tactical.lower())
-            root.update()
     else:
         button5.configure(image=image5_2_pressed)
-        root.update()
         print("Closing bot")
         root.after(1000, button5.configure(image=image5))
-        root.update()
 
 
 # CREATES ALL THE BUTTONS AND ADDS THEM TO THE WINDOW
@@ -167,5 +170,5 @@ button3.place(relx=.35, rely=.725, anchor="center")
 button4.place(relx=.65, rely=.725, anchor="center")
 button5.place(relx=.5, rely=.9, anchor="center")
 
-
+# NEEDED FOR THE GUI TO APPEAR
 root.mainloop()
