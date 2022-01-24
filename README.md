@@ -9,10 +9,13 @@ If everything worked properly, when you launch the application you should see th
 ![image](https://user-images.githubusercontent.com/85963782/150719005-7336ae4a-a10d-448a-9685-f751ce58c4c0.png)
 
 To start using the bot, click on your monitor's resolution, either `1080P` (Most common) or `1440P`, then choose your AFK mode.
+
 **KD Lowering**
+
 If you want the bot to focus primarily on lowering your KD and thus your MMR, click on the `KD Lowering` button. It will jump out of the dropship early and use either Gibraltar  or Horizon to make you as visible and easy to kill as possible while keeping you from being kicked. If you have different keybinds than default, enter them in the text boxes. Finally, open your Apex and click `start`. 
 
 **XP Grinding**
+
 If you want the bot to focus on gaining as much XP as possible, click on the `XP Grinding` button. It will jump out of the dropship at the end of the path and keep your from being kicked. Finally, open your Apex and click `start`.
 
 **If you interact with Apex while the bot is active, it might get stuck.**
