@@ -5,8 +5,8 @@ from random import randint
 from psutil import process_iter
 
 
+# QUEUES FOR A MATCH FROM THE HOME SCREEN
 def queue_into_game(resolution):
-    # TRY STATEMENT MAKES SURE THE GAME DOESN'T CRASH IF ONE OF THE BUTTONS CAN'T BE FOUND
     try:
         if pyautogui.locateOnScreen(f"fill_teammates{resolution}.png", confidence=.95) is not None:
             fill_button_cords = pyautogui.center(pyautogui.locateOnScreen(f"fill_teammates{resolution}.png", confidence=.8))
@@ -18,8 +18,8 @@ def queue_into_game(resolution):
         print("Error in finding fill and or ready button and loading into game.")
 
 
+# ENTERS CLICKS AND KEYSTROKES IN CORRECT ORDER TO GO FROM THE DEATH SCREEN TO THE LOBBY
 def go_to_lobby(resolution):
-    # DEPENDING ON THE RESOLUTION, THE EXACT ORDER OF CLICKS AND BUTTON INPUTS IS MAPPED OUT
     if resolution == "HD":
         pydirectinput.click(1628, 1050)
         sleep(1)
@@ -46,6 +46,8 @@ def go_to_lobby(resolution):
         pydirectinput.press("space")
         sleep(1)
         pydirectinput.press("space")
+        sleep(1)
+        pydirectinput.press("space")
 
 
 class ApexBot:
@@ -54,92 +56,88 @@ class ApexBot:
         self.resolution = resolution
 
     def xp_grinding(self):
-        # CHECKS TO SEE IF APEX IS STILL OPEN, IF IT IS THEN IT CHECKS FOR CERTAIN BUTTONS OR ICONS ON THE SCREEN TO DETERMINE ITS NEXT ACTION
+        # CHECKS IF APEX IS CURRENTLY RUNNING
         if "r5apex.exe" not in [p.name() for p in process_iter()]:
             pass
+        # STOPS PLAYER FROM BEING KICKED FOR AFKING BY JUMPING
         elif pyautogui.locateOnScreen(f"in_game_constant{self.resolution}.png", confidence=.8) is not None:
             self.in_game = True
-            print("Jump")
             pydirectinput.press("space")
             sleep(randint(0, 10))
+        # STARTS QUEUING
         elif pyautogui.locateOnScreen(f"ready_button{self.resolution}.png", confidence=.8) is not None:
-            print("Start")
             queue_into_game(self.resolution)
             self.in_game = False
+        # GOES FROM DEATH SCREEN TO HOME SCREEN
         elif pyautogui.locateOnScreen(f"squad_eliminated_constant{self.resolution}.png", confidence=.8) is not None or pyautogui.locateOnScreen(f"leave_match_constant{self.resolution}.png", confidence=.8) is not None:
-            print("End")
             go_to_lobby(self.resolution)
             self.in_game = False
+        # CLICKS THE CONTINUE BUTTON THAT APPEARS WHEN APEX IS FIRST LAUNCHED
         elif pyautogui.locateOnScreen(f"continue_constant{self.resolution}.png", confidence=.8) is not None:
-            print("Clicking game")
             pydirectinput.click()
             self.in_game = False
+        # PRESSES ESCAPE WHEN A POPUP IS ON SCREEN
         elif pyautogui.locateOnScreen(f"escape_close{self.resolution}.png", confidence=.8) is not None:
-            print("Pressing Escape")
             pydirectinput.press("escape")
             self.in_game = False
+        # GETS USER BACK INTO THE GAME WHEN AN ERROR HAPPENS E.G. BEING DISCONNECTED
         elif pyautogui.locateOnScreen(f"continue_error{self.resolution}.png", confidence=.8) is not None or pyautogui.locateOnScreen(f"continue_error2_{self.resolution}.png", confidence=.8):
-            print("Pressing Continue")
             pydirectinput.press("escape")
             self.in_game = False
         else:
-            print("Not in game")
             self.in_game = False
 
     def kd_lowering(self, interact_key, tactical_key):
-        # CHECKS TO SEE IF APEX IS STILL OPEN, IF IT IS THEN IT CHECKS FOR CERTAIN BUTTONS OR ICONS ON THE SCREEN TO DETERMINE ITS NEXT ACTION
+        # CHECKS IF APEX IS CURRENTLY RUNNING
         if "r5apex.exe" not in [p.name() for p in process_iter()]:
             pass
+        # STOPS PLAYER FROM BEING KICKED FOR AFKING BY JUMPING AND USES THEIR TACTICAL TO MAKE THEM MORE VISIBLE
         elif pyautogui.locateOnScreen(f"in_game_constant{self.resolution}.png", confidence=.8) is not None:
             self.in_game = True
-            print("Jump")
             pydirectinput.press("space")
             sleep(randint(0, 10))
             pydirectinput.press(tactical_key)
+        # STARTS QUEUING
         elif pyautogui.locateOnScreen(f"ready_button{self.resolution}.png", confidence=.8) is not None:
             print("Start")
             queue_into_game(self.resolution)
             self.in_game = False
-        elif pyautogui.locateOnScreen(f"horizon{self.resolution}.png", confidence=.8) is not None:
-            print("Selecting Horizon")
-            # SELECTS HORIZON AND IF HORIZON CAN'T BE SELECTED IT PREVENTS THE PROGRAM FROM CRASHING
+        # TRIES TO SELECT HORIZON, THEN GIBBY
+        elif self.in_game is False and pyautogui.locateOnScreen(f"horizon{self.resolution}.png", confidence=.8) is not None:
             try:
                 button_cords = pyautogui.center(pyautogui.locateOnScreen(f"horizon{self.resolution}.png", confidence=.8))
                 pydirectinput.click(button_cords.x, button_cords.y)
             except:
                 print("Horizon cords were not found")
-        elif pyautogui.locateOnScreen(f"gibraltar{self.resolution}.png", confidence=.8) is not None:
-            print("Selecting Gibraltar")
-            # SELECTS HORIZON AND IF GIBRALTAR CAN'T BE SELECTED IT PREVENTS THE PROGRAM FROM CRASHING
-            try:
-                button_cords = pyautogui.center(pyautogui.locateOnScreen(f"gibraltar{self.resolution}.png", confidence=.8))
-                pydirectinput.click(button_cords.x, button_cords.y)
-            except:
-                print("Gibraltar cords were not found")
+                if pyautogui.locateOnScreen(f"gibraltar{self.resolution}.png", confidence=.8) is not None:
+                    try:
+                        button_cords = pyautogui.center(pyautogui.locateOnScreen(f"gibraltar{self.resolution}.png", confidence=.8))
+                        pydirectinput.click(button_cords.x, button_cords.y)
+                    except:
+                        print("Gibraltar cords were not found")
+        # DROPS THE USER FROM THE LAUNCH SHIP IN AN AREA USUALLY DENSE WITH PLAYERS
         elif pyautogui.locateOnScreen(f"launch{self.resolution}.png", confidence=.7) is not None:
             sleep(3)
-            print("Launch")
             pydirectinput.press(interact_key)
             pydirectinput.moveTo(990, 985, 0.5)
             pydirectinput.keyDown("w")
             sleep(15)
             pydirectinput.keyUp("w")
+        # GOES FROM DEATH SCREEN TO HOME SCREEN
         elif pyautogui.locateOnScreen(f"squad_eliminated_constant{self.resolution}.png", confidence=.8) is not None or pyautogui.locateOnScreen(f"leave_match_constant{self.resolution}.png", confidence=.8) is not None:
-            print("End")
             go_to_lobby(self.resolution)
             self.in_game = False
+        # CLICKS THE CONTINUE BUTTON THAT APPEARS WHEN APEX IS FIRST LAUNCHED
         elif pyautogui.locateOnScreen(f"continue_constant{self.resolution}.png", confidence=.8) is not None:
-            print("Clicking game")
             pydirectinput.click()
             self.in_game = False
+        # PRESSES ESCAPE WHEN A POPUP IS ON SCREEN
         elif pyautogui.locateOnScreen(f"escape_close{self.resolution}.png", confidence=.8) is not None:
-            print("Pressing Escape")
             pydirectinput.press("escape")
             self.in_game = False
+        # GETS USER BACK INTO THE GAME WHEN AN ERROR HAPPENS E.G. BEING DISCONNECTED
         elif pyautogui.locateOnScreen(f"continue_error{self.resolution}.png", confidence=.8) is not None or pyautogui.locateOnScreen(f"continue_error2_{self.resolution}.png", confidence=.8):
-            print("Pressing Continue")
             pydirectinput.press("escape")
             self.in_game = False
         else:
-            print("Not in game")
             self.in_game = False

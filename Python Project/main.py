@@ -1,6 +1,4 @@
-import threading
 from tkinter import *
-from threading import *
 from bot_functions import *
 from other_functions import *
 from psutil import process_iter
@@ -33,30 +31,26 @@ label3.place(relx=.5, rely=.6, anchor="center")
 label4.place(relx=.5, rely=.535, anchor="center")
 
 # GET ALL OF THE IMAGES FOR THE BUTTONS
-image1 = PhotoImage(file="button1.png")
-image2 = PhotoImage(file="button2.png")
-image3 = PhotoImage(file="button3.png")
-image4 = PhotoImage(file="button4.png")
-image5 = PhotoImage(file="button5.png")
-image5_2 = PhotoImage(file="button5_2.png")
-image1_pressed = PhotoImage(file="button1_pressed.png")
-image2_pressed = PhotoImage(file="button2_pressed.png")
-image3_pressed = PhotoImage(file="button3_pressed.png")
-image4_pressed = PhotoImage(file="button4_pressed.png")
-image5_pressed = PhotoImage(file="button5_pressed.png")
-image5_2_pressed = PhotoImage(file="button5_2_pressed.png")
+image1 = PhotoImage(file="GUI Assets/button1.png")
+image2 = PhotoImage(file="GUI Assets/button2.png")
+image3 = PhotoImage(file="GUI Assets/button3.png")
+image4 = PhotoImage(file="GUI Assets/button4.png")
+image5 = PhotoImage(file="GUI Assets/button5.png")
+image5_2 = PhotoImage(file="GUI Assets/button5_2.png")
+image1_pressed = PhotoImage(file="GUI Assets/button1_pressed.png")
+image2_pressed = PhotoImage(file="GUI Assets/button2_pressed.png")
+image3_pressed = PhotoImage(file="GUI Assets/button3_pressed.png")
+image4_pressed = PhotoImage(file="GUI Assets/button4_pressed.png")
+image5_pressed = PhotoImage(file="GUI Assets/button5_pressed.png")
+image5_2_pressed = PhotoImage(file="GUI Assets/button5_2_pressed.png")
 
 # CREATES TEXT FIELDS FOR KEYBINDS
 entry1 = create_custom_entry(root=root, placeholder_text="Enter your interact key (Defaults to E)")
 entry2 = create_custom_entry(root=root, placeholder_text="Enter your tactical key (Defaults to Q)")
 
-# VARIABLES THAT ARE USED TO DETERMINE WHAT BUTTON IS PRESSED
 res_button_pressed = ""
 mode_button_pressed = 0
 start_pressed = 0
-
-# VARIABLE USED WHEN THE START BUTTON IS PRESSED TO KEEP TRACK OF IF THE BOT IS RUNNING OR IF THE USER NEEDS TO DO SOMETHING
-running = False
 
 
 # DEFINES THE FUNCTIONS THAT DETERMINE WHAT HAPPENS WHEN A BUTTON IS PRESSED
@@ -112,17 +106,10 @@ def button4_pressed():
     entry2.place_forget()
 
 
+running = False
 def button5_pressed():
-    # CREATING AND STARTING THE THREAD FOR THE BOT
-    t1 = Thread(target=afk_bot_start)
-    t1.start()
-
-
-def afk_bot_start():
-    # USED TO DETERMINE IF THE BOT IS RUNNING
     global running
     running = not running
-    # CHECKS IF THE BOT IS ALLOWED TO RUN (USER HAS TO INPUT THINGS CORRECTLY)
     if res_button_pressed == "" or mode_button_pressed == 0:
         label4.configure(text="You must select the mode and resolution.")
         running = False
@@ -132,30 +119,33 @@ def afk_bot_start():
     elif running:
         label4.configure(text="")
         button5.configure(image=image5_pressed)
+        root.update()
         print("Launching bot")
         root.after(1000, button5.configure(image=image5_2))
+        root.update()
         apex_bot = ApexBot(res_button_pressed)
         while True:
             if not running:
                 break
-            # CHECKS THROUGH THE PROCESSES RUNNING ON THE USER'S COMPUTER TO MAKE SURE APEX IS OPEN
+            root.update()
             if "r5apex.exe" in [p.name() for p in process_iter()]:
                 if mode_button_pressed == 4:
                     apex_bot.xp_grinding()
                 else:
-                    # GETS THE VALUES IN THE TEXT FIELDS
                     interact = entry1.get()
                     tactical = entry2.get()
-                    # CHECKS TO SEE IF THE USER INPUTTED NOTHING, AND IF SO USES THE DEFAULT KEYS
                     if entry1.get() == entry1.placeholder:
                         interact = "e"
                     if entry2.get() == entry2.placeholder:
                         tactical = "q"
                     apex_bot.kd_lowering(interact_key=interact.lower(), tactical_key=tactical.lower())
+            root.update()
     else:
         button5.configure(image=image5_2_pressed)
+        root.update()
         print("Closing bot")
         root.after(1000, button5.configure(image=image5))
+        root.update()
 
 
 # CREATES ALL THE BUTTONS AND ADDS THEM TO THE WINDOW
@@ -170,5 +160,5 @@ button3.place(relx=.35, rely=.725, anchor="center")
 button4.place(relx=.65, rely=.725, anchor="center")
 button5.place(relx=.5, rely=.9, anchor="center")
 
-# NEEDED FOR THE GUI TO APPEAR
+
 root.mainloop()
