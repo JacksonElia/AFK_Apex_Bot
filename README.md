@@ -19,7 +19,7 @@ If you want the bot to focus primarily on lowering your KD and thus your MMR, cl
 
 If you want the bot to focus on gaining as much XP as possible, click on the `XP Grinding` button. It will jump out of the dropship at the end of the path and keep your from being kicked. Finally, open your Apex and click `start`.
 
-# Import to Know
+# Important to Know
 - **Keep your screen turned on while you are having the bot AFK, it works by mimicking a player, so you have to have Apex visible and fullscreen.**
 - **If you interact with Apex while the bot is active, it might get stuck.**
 - **Allow up to 30 seconds of having you Apex running in full screen for the bot to start.**
