@@ -1,4 +1,5 @@
-from tkinter import *
+from tkinter import Tk, Label, PhotoImage, Button
+from threading import Thread
 from bot_functions import *
 from other_functions import *
 from psutil import process_iter
@@ -123,29 +124,33 @@ def button5_pressed():
         print("Launching bot")
         root.after(1000, button5.configure(image=image5_2))
         root.update()
-        apex_bot = ApexBot(res_button_pressed)
-        while True:
-            if not running:
-                break
-            root.update()
-            if "r5apex.exe" in [p.name() for p in process_iter()]:
-                if mode_button_pressed == 4:
-                    apex_bot.xp_grinding()
-                else:
-                    interact = entry1.get()
-                    tactical = entry2.get()
-                    if entry1.get() == entry1.placeholder:
-                        interact = "e"
-                    if entry2.get() == entry2.placeholder:
-                        tactical = "q"
-                    apex_bot.kd_lowering(interact_key=interact.lower(), tactical_key=tactical.lower())
-            root.update()
+        t1 = Thread(target=launch_bot)
+        t1.start()
     else:
         button5.configure(image=image5_2_pressed)
         root.update()
         print("Closing bot")
         root.after(1000, button5.configure(image=image5))
         root.update()
+
+
+# LAUNCH BOT
+def launch_bot():
+    apex_bot = ApexBot(res_button_pressed)
+    while True:
+        if not running:
+            break
+        if "r5apex.exe" in [p.name() for p in process_iter()]:
+            if mode_button_pressed == 4:
+                apex_bot.xp_grinding()
+            else:
+                interact = entry1.get()
+                tactical = entry2.get()
+                if entry1.get() == entry1.placeholder:
+                    interact = "e"
+                if entry2.get() == entry2.placeholder:
+                    tactical = "q"
+                apex_bot.kd_lowering(interact_key=interact.lower(), tactical_key=tactical.lower())
 
 
 # CREATES ALL THE BUTTONS AND ADDS THEM TO THE WINDOW
