@@ -1,4 +1,4 @@
-![AFK Apex Bot Banner](https://user-images.githubusercontent.com/85963782/152086207-1fa67b5d-fd1c-45a3-8b87-1138bbdc201b.png)
+![AFK Apex Bot Banner](https://user-images.githubusercontent.com/85963782/152089759-d1aa1bca-4fa6-4dcc-8bef-2eca6ae6ef48.png)
 -
 A program that allows the user to AFK in Apex Legends games in order to either lower their KD or get XP. This is especially useful for finishing the battlepass or getting an heirloom as it can get a substantial amount of XP in a short period of time. **Only works in 1080P and 1440P** (Your primary monitor for Apex has to be one of these resolutions). Also, it is assummed that your jump key is space and your move forward key is w but allows you to choose your interact key and tactical key. **Additionally, your Apex has to be in mouse in keyboard mode. If parts of the menu have controller buttons shown instead of m/kb buttons shown, it can cause the bot not to work.** If your Apex is in controller mode, a quick fix is to press a button on your keyboard or to move your mouse a little.
 
