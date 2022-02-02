@@ -1,6 +1,6 @@
 ![AFK Apex Bot Banner](https://user-images.githubusercontent.com/85963782/152089759-d1aa1bca-4fa6-4dcc-8bef-2eca6ae6ef48.png)
 -
-A program that allows the user to AFK in Apex Legends games in order to either lower their KD or get XP. This is especially useful for finishing the battlepass or getting an heirloom as it can get a substantial amount of XP in a short period of time. **Only works in 1080P and 1440P** (Your primary monitor for Apex has to be one of these resolutions). Also, it is assummed that your jump key is space and your move forward key is w but allows you to choose your interact key and tactical key. **Additionally, your Apex has to be in mouse in keyboard mode. If parts of the menu have controller buttons shown instead of m/kb buttons shown, it can cause the bot not to work.** If your Apex is in controller mode, a quick fix is to press a button on your keyboard or to move your mouse a little.
+A program that allows the user to AFK in Apex Legends games in order to either lower their KD or get XP. This is especially useful for finishing the battlepass or getting an heirloom as it can get a substantial amount of XP in a short period of time. **Only works in 1080P and 1440P** (Your primary monitor for Apex has to be one of these resolutions). Also, it is assummed that your jump key is space and your move forward key is w but allows you to choose your interact key and tactical key. 
 
 # How to use it
 Go to ![image](https://user-images.githubusercontent.com/85963782/150718639-bec6b20b-f788-4d28-9315-25d33103b6ca.png) and download the latest release's installer (should be an exe.) Once downloaded, run the installer and if a popup appears saying "Windows protected your PC", click `more info` then `Run anyway`. Click `next` on the installer (making a desktop shortcut is recommended) then click `install` and `finish`.
@@ -19,8 +19,11 @@ If you want the bot to focus primarily on lowering your KD and thus your MMR, cl
 
 If you want the bot to focus on gaining as much XP as possible, click on the `XP Grinding` button. It will jump out of the dropship at the end of the path and keep your from being kicked. Finally, open your Apex and click `start`.
 
-**Keep your screen on while you are having the bot AFK, it works by mimicking a player, so you have to have Apex visible and fullscreen.**
-**If you interact with Apex while the bot is active, it might get stuck.**
+# Import to Know
+- **Keep your screen turned on while you are having the bot AFK, it works by mimicking a player, so you have to have Apex visible and fullscreen.**
+- **If you interact with Apex while the bot is active, it might get stuck.**
+- **Allow up to 30 seconds of having you Apex running in full screen for the bot to start.**
+- **Your Apex has to be in mouse in keyboard mode. If parts of the menu have controller buttons shown instead of m/kb buttons shown, it can cause the bot not to work. If your Apex is in controller mode, a quick fix is to press a button on your keyboard, or to move your mouse a little.**
 
 # Frameworks, Tools, and Libraries used
 - [Tkinter](https://docs.python.org/3/library/tkinter.html)
