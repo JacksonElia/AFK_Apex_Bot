@@ -29,6 +29,9 @@ If you want the bot to focus on gaining as much XP as possible, click on the `XP
 - If your monitor is a different resolution and or aspect ratio than 1080P or 1440P, in apex you can change this in settings->`video`. Change your aspex ratio to 16:9 and resolution to `1920 x 1080` or `2560 x 1440`.
 ![image](https://user-images.githubusercontent.com/85963782/156895505-65d3171f-b8aa-4e27-b13c-f7fa1dd82245.png)
 
+# Known Bugs
+- Sometimes the bot does not un check fill teammates, leaving you in a game with other people. This will be fixed eventually.
+
 # Frameworks, Tools, and Libraries used
 - [Tkinter](https://docs.python.org/3/library/tkinter.html)
 - [PyAutoGUI](https://pyautogui.readthedocs.io/en/latest/)
