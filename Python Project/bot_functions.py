@@ -21,9 +21,11 @@ def queue_into_game(resolution):
 # ENTERS CLICKS AND KEYSTROKES IN CORRECT ORDER TO GO FROM THE DEATH SCREEN TO THE LOBBY
 def go_to_lobby(resolution):
     if resolution == "HD":
-        pydirectinput.click(1628, 1050)
+        pydirectinput.press("space")
         sleep(1)
-        pydirectinput.click(850, 716)
+        yes_button_cords = pyautogui.center(
+            pyautogui.locateOnScreen(f"Game Assets/yes_button{resolution}.png", confidence=.8))
+        pydirectinput.click(yes_button_cords.x, yes_button_cords.y)
         sleep(7)
         pydirectinput.click(850, 716)
         pydirectinput.press("space")
@@ -34,9 +36,11 @@ def go_to_lobby(resolution):
         sleep(1)
         pydirectinput.press("space")
     else:
-        pydirectinput.click(2171, 1400)
+        pydirectinput.press("space")
         sleep(1)
-        pydirectinput.click(1131, 955)
+        yes_button_cords = pyautogui.center(
+            pyautogui.locateOnScreen(f"Game Assets/yes_button{resolution}.png", confidence=.8))
+        pydirectinput.click(yes_button_cords.x, yes_button_cords.y)
         sleep(7)
         pydirectinput.click(1231, 955)
         pydirectinput.press("space")
