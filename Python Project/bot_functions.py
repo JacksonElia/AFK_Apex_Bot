@@ -5,51 +5,6 @@ from random import randint
 from psutil import process_iter
 
 
-# QUEUES FOR A MATCH FROM THE HOME SCREEN
-def queue_into_game(resolution):
-    try:
-        if pyautogui.locateOnScreen(f"Game Assets/fill_teammates{resolution}.png", confidence=.95) is not None:
-            fill_button_cords = pyautogui.center(pyautogui.locateOnScreen(f"Game Assets/fill_teammates{resolution}.png", confidence=.8))
-            pydirectinput.click(fill_button_cords.x, fill_button_cords.y)
-        sleep(1)
-        ready_button_cords = pyautogui.center(pyautogui.locateOnScreen(f"Game Assets/ready_button{resolution}.png", confidence=.8))
-        pydirectinput.click(ready_button_cords.x, ready_button_cords.y)
-    except:
-        print("Error in finding fill and or ready button and loading into game.")
-
-
-# ENTERS CLICKS AND KEYSTROKES IN CORRECT ORDER TO GO FROM THE DEATH SCREEN TO THE LOBBY
-def go_to_lobby(resolution):
-    if resolution == "HD":
-        pydirectinput.click(1628, 1050)
-        sleep(1)
-        pydirectinput.click(850, 716)
-        sleep(7)
-        pydirectinput.click(850, 716)
-        pydirectinput.press("space")
-        sleep(2)
-        pydirectinput.press("space")
-        sleep(1)
-        pydirectinput.press("space")
-        sleep(1)
-        pydirectinput.press("space")
-    else:
-        pydirectinput.click(2171, 1400)
-        sleep(1)
-        pydirectinput.click(1131, 955)
-        sleep(7)
-        pydirectinput.click(1231, 955)
-        pydirectinput.press("space")
-        sleep(2)
-        pydirectinput.press("space")
-        sleep(1)
-        pydirectinput.press("space")
-        sleep(1)
-        pydirectinput.press("space")
-        sleep(1)
-        pydirectinput.press("space")
-
-
 class ApexBot:
     def __init__(self, resolution):
         self.in_game = False
@@ -66,11 +21,11 @@ class ApexBot:
             sleep(randint(0, 10))
         # STARTS QUEUING
         elif pyautogui.locateOnScreen(f"Game Assets/ready_button{self.resolution}.png", confidence=.8) is not None:
-            queue_into_game(self.resolution)
+            self.queue_into_game()
             self.in_game = False
         # GOES FROM DEATH SCREEN TO HOME SCREEN
         elif pyautogui.locateOnScreen(f"Game Assets/squad_eliminated_constant{self.resolution}.png", confidence=.8) is not None or pyautogui.locateOnScreen(f"Game Assets/leave_match_constant{self.resolution}.png", confidence=.8) is not None:
-            go_to_lobby(self.resolution)
+            self.go_to_lobby()
             self.in_game = False
         # CLICKS THE CONTINUE BUTTON THAT APPEARS WHEN APEX IS FIRST LAUNCHED
         elif pyautogui.locateOnScreen(f"Game Assets/continue_constant{self.resolution}.png", confidence=.8) is not None:
@@ -99,7 +54,7 @@ class ApexBot:
             pydirectinput.press(tactical_key)
         # STARTS QUEUING
         elif pyautogui.locateOnScreen(f"Game Assets/ready_button{self.resolution}.png", confidence=.8) is not None:
-            queue_into_game(self.resolution)
+            self.queue_into_game()
             self.in_game = False
         # TRIES TO SELECT HORIZON, THEN GIBBY
         elif pyautogui.locateOnScreen(f"Game Assets/horizon{self.resolution}.png", confidence=.7) is not None:
@@ -124,7 +79,7 @@ class ApexBot:
             pydirectinput.keyUp("w")
         # GOES FROM DEATH SCREEN TO HOME SCREEN
         elif pyautogui.locateOnScreen(f"Game Assets/squad_eliminated_constant{self.resolution}.png", confidence=.8) is not None or pyautogui.locateOnScreen(f"Game Assets/leave_match_constant{self.resolution}.png", confidence=.8) is not None:
-            go_to_lobby(self.resolution)
+            self.go_to_lobby()
             self.in_game = False
         # CLICKS THE CONTINUE BUTTON THAT APPEARS WHEN APEX IS FIRST LAUNCHED
         elif pyautogui.locateOnScreen(f"Game Assets/continue_constant{self.resolution}.png", confidence=.8) is not None:
@@ -140,3 +95,53 @@ class ApexBot:
             self.in_game = False
         else:
             self.in_game = False
+
+    # QUEUES FOR A MATCH FROM THE HOME SCREEN
+    def queue_into_game(self):
+        try:
+            if pyautogui.locateOnScreen(f"Game Assets/fill_teammates{self.resolution}.png", confidence=.7) is not None:
+                fill_button_cords = pyautogui.center(
+                    pyautogui.locateOnScreen(f"Game Assets/fill_teammates{self.resolution}.png", confidence=.7))
+                pydirectinput.click(fill_button_cords.x, fill_button_cords.y)
+            sleep(1)
+            # TODO: Make button clicks like this
+            ready_button_cords = pyautogui.center(
+                pyautogui.locateOnScreen(f"Game Assets/ready_button{self.resolution}.png", confidence=.8))
+            pydirectinput.click(ready_button_cords.x, ready_button_cords.y)
+        except:
+            print("Error in finding fill and or ready button and loading into game.")
+
+    # ENTERS CLICKS AND KEYSTROKES IN CORRECT ORDER TO GO FROM THE DEATH SCREEN TO THE LOBBY
+    def go_to_lobby(self):
+        if self.resolution == "HD":
+            pydirectinput.press("space")
+            sleep(1)
+            yes_button_cords = pyautogui.center(
+                pyautogui.locateOnScreen(f"Game Assets/yes_button{self.resolution}.png", confidence=.8))
+            pydirectinput.click(yes_button_cords.x, yes_button_cords.y)
+            sleep(7)
+            pydirectinput.click(850, 716)
+            pydirectinput.press("space")
+            sleep(2)
+            pydirectinput.press("space")
+            sleep(1)
+            pydirectinput.press("space")
+            sleep(1)
+            pydirectinput.press("space")
+        else:
+            pydirectinput.press("space")
+            sleep(1)
+            yes_button_cords = pyautogui.center(
+                pyautogui.locateOnScreen(f"Game Assets/yes_button{self.resolution}.png", confidence=.8))
+            pydirectinput.click(yes_button_cords.x, yes_button_cords.y)
+            sleep(7)
+            pydirectinput.click(1231, 955)
+            pydirectinput.press("space")
+            sleep(2)
+            pydirectinput.press("space")
+            sleep(1)
+            pydirectinput.press("space")
+            sleep(1)
+            pydirectinput.press("space")
+            sleep(1)
+            pydirectinput.press("space")

@@ -13,6 +13,8 @@ screen_height = root.winfo_screenheight()
 
 # SETS WINDOW SIZE
 root.geometry(f"800x600+{screen_width//2-400}+{screen_height//2-300}")
+root.maxsize(800, 600)
+root.minsize(800, 600)
 
 # DOES OTHER WINDOW SETUP
 root.title("AFK Apex Bot")
@@ -20,7 +22,7 @@ root.iconbitmap("ApexPredators_Logo.ico")
 root.configure(background='white')
 
 # CREATES ALL THE LABELS AND ADDS THEM TO THE WINDOW
-title_label = Label(root, text="Apex AFK Bot", background="white", font=("Helvetica", 30, "bold"))
+title_label = Label(root, text="AFK Apex Bot", background="white", font=("Helvetica", 30, "bold"))
 label1 = Label(root, text="What is your resolution in Apex?", background="white", font=("Helvetica", 15, "bold"))
 label2 = Label(root, text="(defaults to your monitor's revolution)", background="white", font=("Helvetica", 15, "bold"))
 label3 = Label(root, text="What mode do you want to AFK in?", background="white", font=("Helvetica", 15, "bold"))
@@ -165,5 +167,13 @@ button3.place(relx=.35, rely=.725, anchor="center")
 button4.place(relx=.65, rely=.725, anchor="center")
 button5.place(relx=.5, rely=.9, anchor="center")
 
+
+def close_window():
+    global running
+    running = False
+    root.destroy()
+
+
+root.protocol("WM_DELETE_WINDOW", close_window)
 
 root.mainloop()
