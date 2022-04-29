@@ -7,7 +7,7 @@ Go to ![image](https://user-images.githubusercontent.com/85963782/150718639-bec6
 
 If everything worked properly, when you launch the application you should see this window:
 
-![image](https://user-images.githubusercontent.com/85963782/150719005-7336ae4a-a10d-448a-9685-f751ce58c4c0.png)
+![image](https://user-images.githubusercontent.com/85963782/165866845-4d1eaafe-0192-42ab-abe9-463e407521ec.png)
 
 To start using the bot, click on your monitor's resolution, either `1080P` (Most common) or `1440P`, then choose your AFK mode.
 
@@ -30,7 +30,7 @@ If you want the bot to focus on gaining as much XP as possible, click on the `XP
 ![image](https://user-images.githubusercontent.com/85963782/156895505-65d3171f-b8aa-4e27-b13c-f7fa1dd82245.png)
 
 # Known Bugs
-- Sometimes the bot does not uncheck fill teammates, leaving you in a game with other people. This will be fixed eventually.
+- Nothing as of right now, if you find one, raise an `issue`.
 
 # Frameworks, Tools, and Libraries used
 - [Tkinter](https://docs.python.org/3/library/tkinter.html)
