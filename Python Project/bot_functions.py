@@ -9,6 +9,7 @@ class ApexBot:
     def __init__(self, resolution):
         self.in_game = False
         self.resolution = resolution
+        self.tries_to_find_fill_button = 0
 
     def xp_grinding(self):
         # CHECKS IF APEX IS CURRENTLY RUNNING
@@ -32,7 +33,7 @@ class ApexBot:
             pydirectinput.click()
             self.in_game = False
         # PRESSES ESCAPE WHEN A POPUP IS ON SCREEN
-        elif pyautogui.locateOnScreen(f"Game Assets/escape_close{self.resolution}.png", confidence=.8) is not None:
+        elif pyautogui.locateOnScreen(f"Game Assets/escape{self.resolution}.png", confidence=.8) is not None:
             pydirectinput.press("escape")
             self.in_game = False
         # GETS USER BACK INTO THE GAME WHEN AN ERROR HAPPENS E.G. BEING DISCONNECTED
@@ -86,7 +87,7 @@ class ApexBot:
             pydirectinput.click()
             self.in_game = False
         # PRESSES ESCAPE WHEN A POPUP IS ON SCREEN
-        elif pyautogui.locateOnScreen(f"Game Assets/escape_close{self.resolution}.png", confidence=.8) is not None:
+        elif pyautogui.locateOnScreen(f"Game Assets/escape{self.resolution}.png", confidence=.8) is not None:
             pydirectinput.press("escape")
             self.in_game = False
         # GETS USER BACK INTO THE GAME WHEN AN ERROR HAPPENS E.G. BEING DISCONNECTED
@@ -99,15 +100,25 @@ class ApexBot:
     # QUEUES FOR A MATCH FROM THE HOME SCREEN
     def queue_into_game(self):
         try:
-            if pyautogui.locateOnScreen(f"Game Assets/fill_teammates{self.resolution}.png", confidence=.7) is not None:
+            print("Trying to queue into game")
+            if pyautogui.locateOnScreen(f"Game Assets/fill_teammates{self.resolution}.png", confidence=.6) is not None:
+                self.tries_to_find_fill_button = 0
                 fill_button_cords = pyautogui.center(
-                    pyautogui.locateOnScreen(f"Game Assets/fill_teammates{self.resolution}.png", confidence=.7))
+                    pyautogui.locateOnScreen(f"Game Assets/fill_teammates{self.resolution}.png", confidence=.6))
                 pydirectinput.click(fill_button_cords.x, fill_button_cords.y)
-            sleep(1)
-            # TODO: Make button clicks like this
-            ready_button_cords = pyautogui.center(
-                pyautogui.locateOnScreen(f"Game Assets/ready_button{self.resolution}.png", confidence=.8))
-            pydirectinput.click(ready_button_cords.x, ready_button_cords.y)
+                sleep(1)
+                ready_button_cords = pyautogui.center(
+                    pyautogui.locateOnScreen(f"Game Assets/ready_button{self.resolution}.png", confidence=.8))
+                pydirectinput.click(ready_button_cords.x, ready_button_cords.y)
+            else:
+                self.tries_to_find_fill_button += 1
+                sleep(1)
+
+            if self.tries_to_find_fill_button >= 5:
+                self.tries_to_find_fill_button = 0
+                ready_button_cords = pyautogui.center(
+                    pyautogui.locateOnScreen(f"Game Assets/ready_button{self.resolution}.png", confidence=.8))
+                pydirectinput.click(ready_button_cords.x, ready_button_cords.y)
         except:
             print("Error in finding fill and or ready button and loading into game.")
 
@@ -116,9 +127,14 @@ class ApexBot:
         if self.resolution == "HD":
             pydirectinput.press("space")
             sleep(1)
-            yes_button_cords = pyautogui.center(
-                pyautogui.locateOnScreen(f"Game Assets/yes_button{self.resolution}.png", confidence=.8))
-            pydirectinput.click(yes_button_cords.x, yes_button_cords.y)
+            if pyautogui.locateOnScreen(f"Game Assets/yes_button{self.resolution}.png", confidence=.8) is not None:
+                yes_button_cords = pyautogui.center(
+                    pyautogui.locateOnScreen(f"Game Assets/yes_button{self.resolution}.png", confidence=.8))
+                pydirectinput.click(yes_button_cords.x, yes_button_cords.y)
+            elif pyautogui.locateOnScreen(f"Game Assets/yes_button2_{self.resolution}.png", confidence=.8) is not None:
+                yes_button_cords = pyautogui.center(
+                    pyautogui.locateOnScreen(f"Game Assets/yes_button2_{self.resolution}.png", confidence=.8))
+                pydirectinput.click(yes_button_cords.x, yes_button_cords.y)
             sleep(7)
             pydirectinput.click(850, 716)
             pydirectinput.press("space")
@@ -131,9 +147,14 @@ class ApexBot:
         else:
             pydirectinput.press("space")
             sleep(1)
-            yes_button_cords = pyautogui.center(
-                pyautogui.locateOnScreen(f"Game Assets/yes_button{self.resolution}.png", confidence=.8))
-            pydirectinput.click(yes_button_cords.x, yes_button_cords.y)
+            if pyautogui.locateOnScreen(f"Game Assets/yes_button{self.resolution}.png", confidence=.8) is not None:
+                yes_button_cords = pyautogui.center(
+                    pyautogui.locateOnScreen(f"Game Assets/yes_button{self.resolution}.png", confidence=.8))
+                pydirectinput.click(yes_button_cords.x, yes_button_cords.y)
+            elif pyautogui.locateOnScreen(f"Game Assets/yes_button2_{self.resolution}.png", confidence=.8) is not None:
+                yes_button_cords = pyautogui.center(
+                    pyautogui.locateOnScreen(f"Game Assets/yes_button2_{self.resolution}.png", confidence=.8))
+                pydirectinput.click(yes_button_cords.x, yes_button_cords.y)
             sleep(7)
             pydirectinput.click(1231, 955)
             pydirectinput.press("space")
