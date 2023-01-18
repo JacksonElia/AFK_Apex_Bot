@@ -40,4 +40,4 @@ If you want the bot to focus on gaining as much XP as possible, click on the `XP
 
 I made this with PyCharm.
 
-MIT © [JacksonElia](https://github.com/JacksonElia)
+MIT © [Jackson Elia](https://github.com/JacksonElia)
