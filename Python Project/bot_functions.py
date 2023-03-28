@@ -43,6 +43,7 @@ class ApexBot:
         else:
             self.in_game = False
 
+
     def kd_lowering(self, interact_key, tactical_key):
         # CHECKS IF APEX IS CURRENTLY RUNNING
         if "r5apex.exe" not in [p.name() for p in process_iter()]:
@@ -110,6 +111,15 @@ class ApexBot:
                 ready_button_cords = pyautogui.center(
                     pyautogui.locateOnScreen(f"Game Assets/ready_button{self.resolution}.png", confidence=.8))
                 pydirectinput.click(ready_button_cords.x, ready_button_cords.y)
+                #SPAWNS INTO MATCH IN CASE OF CONTROL MODE
+                #ICON1
+                spawn_button_cords1 = pyautogui.center(
+                    pyautogui.locateOnScreen(f"Game Assets/spawn1.png", confidence=.8))
+                pydirectinput.click(spawn_button_cords1.x, ready_button_cord1s.y)
+                #ICON2
+                spawn_button_cords2 = pyautogui.center(
+                    pyautogui.locateOnScreen(f"Game Assets/spawn2.png", confidence=.8))
+                pydirectinput.click(spawn_button_cords2 .x, ready_button_cord2s.y)
             else:
                 self.tries_to_find_fill_button += 1
                 sleep(1)
