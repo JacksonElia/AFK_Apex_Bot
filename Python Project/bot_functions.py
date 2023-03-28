@@ -11,7 +11,7 @@ class ApexBot:
         self.resolution = resolution
         self.tries_to_find_fill_button = 0
 
-    def xp_grind_modes(self):
+    def xp_rotation(self):
         # CHECKS IF APEX IS CURRENTLY RUNNING
         if "r5apex.exe" not in [p.name() for p in process_iter()]:
             pass     
@@ -30,7 +30,7 @@ class ApexBot:
             self.in_game = False
         # GOES FROM DEATH SCREEN TO HOME SCREEN
         elif pyautogui.locateOnScreen(f"Game Assets/squad_eliminated_constant{self.resolution}.png", confidence=.8) is not None or pyautogui.locateOnScreen(f"Game Assets/leave_match_constant{self.resolution}.png", confidence=.8) is not None:
-            self.lobby_modes()
+            self.to_lobby_rotation()
             self.in_game = False
         # PRESSES ESCAPE WHEN A POPUP IS ON SCREEN
         elif pyautogui.locateOnScreen(f"Game Assets/escape{self.resolution}.png", confidence=.8) is not None:
@@ -62,7 +62,7 @@ class ApexBot:
             self.in_game = False
         # GOES FROM DEATH SCREEN TO HOME SCREEN
         elif pyautogui.locateOnScreen(f"Game Assets/scoreboard.png", confidence=.8) is not None or pyautogui.locateOnScreen(f"Game Assets/scoreboard.png", confidence=.8) is not None:
-            self.lobby_modes()
+            self.go_to_lobby()
             self.in_game = False 
         # PRESSES ESCAPE WHEN A POPUP IS ON SCREEN
         elif pyautogui.locateOnScreen(f"Game Assets/escape{self.resolution}.png", confidence=.8) is not None:
@@ -215,7 +215,7 @@ class ApexBot:
             pydirectinput.press("space")
 
     # ENTERS CLICKS AND KEYSTROKES IN CORRECT ORDER TO GO FROM THE DEATH SCREEN TO THE LOBBY in random modes.
-    def lobby_modes(self):
+    def to_lobby_rotation(self):
         print("Entered lobby modes function")
         pydirectinput.press("space")
         sleep(1)
